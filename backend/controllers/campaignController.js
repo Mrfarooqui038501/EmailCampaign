@@ -1,6 +1,6 @@
 const Campaign = require('../models/Campaign');
 const EmailLog = require('../models/EmailLog');
-const { scheduleEmail } = require('../services/schedulerService'); // <- MUST be after model imports
+const { scheduleEmail } = require('../services/schedulerService'); 
 
 const createCampaign = async (req, res) => {
   try {
@@ -9,7 +9,7 @@ const createCampaign = async (req, res) => {
       title, message, recipients, scheduledTime,
     });
     await campaign.save();
-    // Immediately schedule the campaign for sending!
+    
     scheduleEmail(campaign);
     res.status(201).json(campaign);
   } catch (error) {
