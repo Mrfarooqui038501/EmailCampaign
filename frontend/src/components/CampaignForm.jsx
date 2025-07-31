@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../App.css'; // Import the CSS file for styling
+import '../App.css'; 
 
 function CampaignForm() {
   const [formData, setFormData] = useState({
@@ -38,10 +38,10 @@ function CampaignForm() {
   };
 
   return (
-    <div className="campaign-form"> {/* Using .campaign-form class from app.css */}
+    <div className="campaign-form"> 
       <h2>Create New Campaign</h2>
       {message && (
-        <div className={`message-box ${messageType}`}> {/* New classes for messages */}
+        <div className={`message-box ${messageType}`}> 
           {message}
         </div>
       )}
