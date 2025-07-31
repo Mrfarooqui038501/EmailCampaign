@@ -2,19 +2,19 @@ const nodemailer = require('nodemailer');
 const EmailLog = require('../models/EmailLog');
 
 const createTransporter = () => {
-  // Debug SMTP config
+ 
   console.log('SMTP Config:', {
     host: process.env.SMTP_HOST,
     port: process.env.SMTP_PORT,
     user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS?.slice(0, 3) + '...' // Don't log full pass,
+    pass: process.env.SMTP_PASS?.slice(0, 3) + '...' 
   });
 
   if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
     throw new Error('Missing SMTP .env variables');
   }
 
-  // FIXED: createTransport, NOT createTransporter
+  
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: parseInt(process.env.SMTP_PORT) || 587,
@@ -43,7 +43,7 @@ const sendEmail = async (campaign) => {
     for (const recipient of recipients) {
       try {
         const info = await transporter.sendMail({
-          from: process.env.SMTP_FROM, // e.g. `"Your Name <you@gmail.com>"`
+          from: process.env.SMTP_FROM, 
           to: recipient,
           subject: title,
           html: message,
@@ -60,7 +60,7 @@ const sendEmail = async (campaign) => {
     return logs;
   } catch (error) {
     console.error('Error sending campaign (all):', error);
-    // Save all as failed
+   
     await EmailLog.insertMany(
       recipients.map(r => ({
         campaignId: _id,
