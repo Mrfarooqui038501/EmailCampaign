@@ -27,7 +27,7 @@ function CampaignList() {
     fetchCampaigns();
   }, []);
 
-  // Check scroll position and update button states
+ 
   const checkScrollButtons = () => {
     const container = scrollContainerRef.current;
     if (container) {
@@ -38,7 +38,7 @@ function CampaignList() {
     }
   };
 
-  // Update scroll buttons when campaigns load
+ 
   useEffect(() => {
     if (campaigns.length > 0) {
       setTimeout(() => {
