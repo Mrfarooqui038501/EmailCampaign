@@ -4,14 +4,14 @@ const { sendEmail } = require('./emailService');
 
 const scheduledJobs = new Map();
 
-// Improved scheduleEmail
+
 const scheduleEmail = (campaign) => {
   const { _id, scheduledTime } = campaign;
   try {
     const date = new Date(scheduledTime);
     if (isNaN(date.getTime())) throw new Error('Invalid scheduledTime');
 
-    // Too late?
+ 
     if (date.getTime() < Date.now() - 5000) {
       Campaign.findByIdAndUpdate(_id, { status: 'failed' }).catch(console.error);
       return;
@@ -30,7 +30,7 @@ const scheduleEmail = (campaign) => {
       scheduledJobs.set(_id.toString(), { type: 'timeout', id: timeoutId, destroy: () => clearTimeout(timeoutId) });
       return;
     }
-    // Cron syntax is: min hour day month dayOfWeek
+    
     const cronExpression = `${date.getMinutes()} ${date.getHours()} ${date.getDate()} ${date.getMonth() + 1} *`;
 
     if (!cron.validate(cronExpression)) throw new Error(`Invalid cronExpr=${cronExpression}`);
@@ -51,7 +51,7 @@ const scheduleEmail = (campaign) => {
   }
 };
 
-// Reschedule pending
+
 const initializeScheduler = async () => {
   try {
     const pending = await Campaign.find({ status: 'pending' });
